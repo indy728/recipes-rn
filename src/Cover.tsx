@@ -2,8 +2,13 @@ import React from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { cover } from './assets';
+import { NavigationProp } from '@react-navigation/native';
 
-const Cover: React.FC = () => {
+interface Props {
+  navigation: NavigationProp<any, any>
+}
+
+const Cover: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.coverWrapper}>
       <ImageBackground source={cover} style={styles.image}>
