@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import type { Node } from 'react';
 import {
@@ -26,40 +26,27 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { Cover } from './src';
-
-const Section = ({ children, title }): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import { Cover, TableOfContents } from './src';
 
 const App: () => Node = () => {
+  const [page, setPage] = useState({
+    thisPage: 'COVER',
+    lastPage: 'COVER',
+  });
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  const handlePageChange: (T: string) => void = (newPage: string) => {
+    setPage({
+      thisPage: newPage,
+      lastPage: page.thisPage,
+    })
+  }
+
+  const CurrentPage = pages[page.thisPage]
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -72,7 +59,7 @@ const App: () => Node = () => {
           <Text>Hello2</Text>
         </View>
       </ScrollView> */}
-      <Cover />
+      <CurrentPage changePage={handlePageChange} goBack={() => handlePageChange(page.lastPage)} />
     </SafeAreaView>
   );
 };
