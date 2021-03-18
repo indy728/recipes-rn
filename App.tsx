@@ -29,25 +29,24 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { Cover } from './src';
+import { Cover, TableOfContents } from './src';
 
 const Stack = createStackNavigator();
 
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
 
 const MyStack = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen
           name="Cover"
           component={Cover}
+        />
+        <Stack.Screen
+          name="TableOfContents"
+          component={TableOfContents}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -55,38 +54,11 @@ const MyStack = () => {
 };
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <MyStack />
-    </SafeAreaView>
+    <MyStack />
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 const theme = {
   ...DefaultTheme,

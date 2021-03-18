@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { cover } from './assets';
 import { NavigationProp } from '@react-navigation/native';
+import StatusBar from './StatusBar';
 
 interface Props {
   navigation: NavigationProp<any, any>
@@ -10,16 +11,19 @@ interface Props {
 
 const Cover: React.FC<Props> = ({ navigation }) => {
   return (
-    <View style={styles.coverWrapper}>
-      <ImageBackground source={cover} style={styles.image}>
-        <View style={styles.overlay}>
-          <Text style={styles.text}>iCookbook</Text>
-          <Button icon="play" mode="contained" dark={false} style={styles.button}>
-            Let's get started
-          </Button>
-        </View>
-      </ImageBackground>
-    </View>
+    <>
+      <StatusBar />
+      <View style={styles.coverWrapper}>
+        <ImageBackground source={cover} style={styles.image}>
+          <View style={styles.overlay}>
+            <Text style={styles.text}>iCookbook</Text>
+            <Button icon="play" mode="contained" dark={false} style={styles.button} onPress={() => navigation.navigate('TableOfContents')}>
+              Let's get started
+            </Button>
+          </View>
+        </ImageBackground>
+      </View>
+    </>
   )
 }
 
